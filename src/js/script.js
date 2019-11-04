@@ -64,7 +64,6 @@
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
-      console.log('newProduct:', thisProduct);
     }
 
     renderInMenu(){
@@ -101,18 +100,15 @@
 
       /* START: click event listener to trigger */
       accordionTrigger.addEventListener('click', function(event){
-        console.log('Element was clicked!');
 
         /* prevent default action for event */
         event.preventDefault();
-        console.log (event);
 
         /* toggle active class on element of thisProduct */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
 
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
-        console.log('activeProducts:', activeProducts);
 
         /* START LOOP: for each active product */
         for(let activeProduct of activeProducts){
@@ -167,8 +163,6 @@
     initMenu: function(){
       const thisApp = this;
 
-      console.log('thisApp.data:', thisApp.data);
-
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
       }
@@ -182,11 +176,6 @@
 
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
