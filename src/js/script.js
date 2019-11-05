@@ -207,10 +207,8 @@
       /* END LOOP: for each paramId in thisProduct.data.params */
       }    
       
-      
       /* Insert value of variable 'price' into price element*/
-           
-
+      thisProduct.priceElem.innerHTML = price; 
 
     }
 
