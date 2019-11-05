@@ -163,11 +163,16 @@
       console.log('PRICE:', price); 
       
       /* START LOOP: for each paramId in thisProduct.data.params */
-  
+      for (let paramId in thisProduct.data.params){
+
         /* save the element in thisProduct.data.params with key paramId as const param */
-          
+        const param = paramId;
+
         /* START LOOP: for each optionId in param.options */
-              
+        const paramProperties = thisProduct.data.params[param];
+        const paramOptions = paramProperties['options'];
+
+        for (let optionId in paramOptions){    
           /* save the element in param.options with key optionId as const option */
                 
       
@@ -194,10 +199,10 @@
                 
       
         /* END LOOP: for each optionId in param.options */
-              
+        }      
       
       /* END LOOP: for each paramId in thisProduct.data.params */
-            
+      }    
       
       
       /* Insert value of variable 'price' into price element*/
