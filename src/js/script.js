@@ -193,13 +193,13 @@
           }    
       
           /* START ELSE IF: if option is not selected and IS default*/
-
+          else if(!optionSelected && option.default){
       
             /* deduct option's price from variable 'price' */
-                
+            price = price - optionPrice;  
                   
           /* END: if option is not selected and IS default */
-                
+          }     
       
         /* END LOOP: for each optionId in param.options */
         }      
