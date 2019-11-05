@@ -174,11 +174,11 @@
 
         for (let optionId in paramOptions){    
           /* save the element in param.options with key optionId as const option */
-                
+          const option = optionId;     
       
           /* FIND if formData contains property key equal to parametr key
           AND: if array with this property key contains option key */
-                
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;    
       
           /* START IF: if option is selected and option is not default */
                 
