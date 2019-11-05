@@ -159,7 +159,8 @@
       console.log('formData', formData);
 
       /* set variable 'price' for default product price (thisProduct.data.price) */
-            
+      let price = thisProduct.data.price;
+      console.log('PRICE:', price); 
       
       /* START LOOP: for each paramId in thisProduct.data.params */
   
