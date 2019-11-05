@@ -158,6 +158,51 @@
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
 
+      /* set variable 'price' for default product price (thisProduct.data.price) */
+            
+      
+      /* START LOOP: for each paramId in thisProduct.data.params */
+  
+        /* save the element in thisProduct.data.params with key paramId as const param */
+          
+        /* START LOOP: for each optionId in param.options */
+              
+          /* save the element in param.options with key optionId as const option */
+                
+      
+          /* FIND if formData contains property key equal to parametr key
+          AND: if array with this property key contains option key */
+                
+      
+          /* START IF: if option is selected and option is not default */
+                
+      
+            /* add price of option to variable price */
+      
+      
+          /* END IF: if option is selected and option is not default */
+                
+      
+          /* START ELSE IF: if option is not selected and IS default*/
+
+      
+            /* deduct option's price from variable 'price' */
+                
+                  
+          /* END: if option is not selected and IS default */
+                
+      
+        /* END LOOP: for each optionId in param.options */
+              
+      
+      /* END LOOP: for each paramId in thisProduct.data.params */
+            
+      
+      
+      /* Insert value of variable 'price' into price element*/
+           
+
+
     }
 
   }
