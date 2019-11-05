@@ -181,13 +181,16 @@
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;    
       
           /* START IF: if option is selected and option is not default */
-                
+          if(optionSelected && !option.default){ 
       
             /* add price of option to variable price */
-      
+            const optionProperties = paramOptions[option];
+            const optionPrice = optionProperties['price'];
+
+            price = price + optionPrice;
       
           /* END IF: if option is selected and option is not default */
-                
+          }    
       
           /* START ELSE IF: if option is not selected and IS default*/
 
