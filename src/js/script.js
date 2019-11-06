@@ -264,6 +264,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
 
       console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments:', element);
@@ -277,6 +278,19 @@
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
+
+    setValue(value){
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      /* TODO: Add validation */
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+    }
+
+
   }
 
   const app = {
