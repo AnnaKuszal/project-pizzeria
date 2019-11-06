@@ -131,7 +131,6 @@
 
     initOrderForm(){
       const thisProduct = this;
-      console.log('initOrderForm:', thisProduct);
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -153,15 +152,12 @@
     
     processOrder(){
       const thisProduct = this;
-      console.log('processOrder:', thisProduct);
 
       /* get data from the form */
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
 
       /* set variable 'price' for default product price (thisProduct.data.price) */
       let price = thisProduct.data.price;
-      console.log('PRICE:', price); 
       
       /* START LOOP: for each paramId in thisProduct.data.params */
       for (let paramId in thisProduct.data.params){
@@ -195,6 +191,8 @@
       
           /* START ELSE IF: if option is not selected and IS default*/
           else if(!optionSelected && option.default){
+            const optionProperties = paramOptions[option];
+            const optionPrice = optionProperties['price'];
       
             /* deduct option's price from variable 'price' */
             price = price - optionPrice;  
