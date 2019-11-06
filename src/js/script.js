@@ -209,18 +209,18 @@
           const optionImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
           
           /* START IF: if option is selected */
-         
+          if(optionSelected){
 
             /* START LOOP: for each found image */
-            
+            for(let optionImage of optionImages){
 
               /* add class active to ALL images referring to the selected option */
-              
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
 
             /* END LOOP: for each found image */
-            
+            }
           /* END IF: if option is selected */
-          
+          }
 
 
           /* START ELSE: (option is not selected) */
