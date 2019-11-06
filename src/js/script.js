@@ -224,19 +224,19 @@
 
 
           /* START ELSE: (option is not selected) */
-          
+          else{
 
             /* START LOOP: for each found image */
-            
+            for(let optionImage of optionImages){
 
               /* remove class active from ALL images referring to the selected option */
-              
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
 
             /* END LOOP: for each found image */
-            
+            }
 
           /* END ELSE: (option is not selected) */
-          
+          }
 
         /* END LOOP: for each optionId in param.options */
         }      
