@@ -202,7 +202,42 @@
           /* END: if option is not selected and IS default */
           }
           
+
+          /* in thisProduct.imageWrapper find all images for this option - 
+          search for elements equal to selector of type: '.paramId-optionId' */
+          /* add all found elements to constant 'optionImages'*/
       
+          
+          /* START IF: if option is selected */
+         
+
+            /* START LOOP: for each found image */
+            
+
+              /* add class active to ALL images referring to the selected option */
+              
+
+            /* END LOOP: for each found image */
+            
+          /* END IF: if option is selected */
+          
+
+
+          /* START ELSE: (option is not selected) */
+          
+
+            /* START LOOP: for each found image */
+            
+
+              /* remove class active from ALL images referring to the selected option */
+              
+
+            /* END LOOP: for each found image */
+            
+
+          /* END ELSE: (option is not selected) */
+          
+
         /* END LOOP: for each optionId in param.options */
         }      
       
