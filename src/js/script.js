@@ -206,7 +206,7 @@
           /* in thisProduct.imageWrapper find all images for this option - 
           search for elements equal to selector of type: '.paramId-optionId' */
           /* add all found elements to constant 'optionImages'*/
-      
+          const optionImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
           
           /* START IF: if option is selected */
          
