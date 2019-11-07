@@ -65,8 +65,6 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
-
-      console.log('newProduct:', thisProduct);
     }
 
     renderInMenu(){
@@ -274,9 +272,6 @@
       thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
-
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor arguments:', element);
     }
 
     getElements(element){
@@ -294,15 +289,12 @@
       const newValue = parseInt(value);
 
       /* TODO: Add validation */
-   
-
       if(newValue!==thisWidget.input.value && newValue>=settings.amountWidget.defaultMin && newValue<=settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
         thisWidget.announce();
       }
       
       thisWidget.input.value = thisWidget.value;
-   
     }
 
     initActions(){
