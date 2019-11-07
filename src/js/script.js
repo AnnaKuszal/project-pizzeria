@@ -246,6 +246,9 @@
       /* END LOOP: for each paramId in thisProduct.data.params */
       }    
       
+      /* multiply price by amount */
+      price *= thisProduct.amountWidget.value;
+
       /* Insert value of variable 'price' into price element*/
       thisProduct.priceElem.innerHTML = price; 
 
@@ -255,6 +258,10 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
     }
 
   }
@@ -265,6 +272,7 @@
 
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
 
       console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments:', element);
@@ -290,7 +298,26 @@
       thisWidget.input.value = thisWidget.value;
     }
 
+    initActions(){
+      const thisWidget = this;
+      
+      thisWidget.input.addEventListener('change', function(){
+        thisWidget.setValue(thisWidget.input.value);
+      });
 
+      thisWidget.linkDecrease.addEventListener('click', function(){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value-=1);
+      });
+
+      thisWidget.linkIncrease.addEventListener('click', function(){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value = thisWidget.value + 1);
+      });
+
+    }
+
+    
   }
 
   const app = {
