@@ -295,6 +295,7 @@
       /* TODO: Add validation */
 
       thisWidget.value = newValue;
+      thisWidget.announce();
       thisWidget.input.value = thisWidget.value;
     }
 
@@ -315,6 +316,13 @@
         thisWidget.setValue(thisWidget.value = thisWidget.value + 1);
       });
 
+    }
+
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
 
     
