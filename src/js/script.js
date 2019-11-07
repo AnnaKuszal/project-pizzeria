@@ -39,14 +39,14 @@
       imageVisible: 'active',
     },
   };
-  /*  
+    
   const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
     }
-  }; */
+  };
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -271,6 +271,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+      thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
 
@@ -293,10 +294,15 @@
       const newValue = parseInt(value);
 
       /* TODO: Add validation */
+   
 
-      thisWidget.value = newValue;
-      thisWidget.announce();
+      if(newValue!==thisWidget.input.value && newValue>=settings.amountWidget.defaultMin && newValue<=settings.amountWidget.defaultMax){
+        thisWidget.value = newValue;
+        thisWidget.announce();
+      }
+      
       thisWidget.input.value = thisWidget.value;
+   
     }
 
     initActions(){
