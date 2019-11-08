@@ -384,7 +384,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      console.log('newCart', thisCart);
+      //console.log('newCart', thisCart);
     }
 
     getElements(element){
@@ -412,16 +412,12 @@
 
       /* generate HTML code based on template */
       const generatedHTML = templates.cartProduct(menuProduct);
-      console.log('generatedHTML', generatedHTML);
 
       /* create element using utils.createElementFromHTML */
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-      console.log('generatedDOM', generatedDOM);
 
       /* add element to thisCart.dom.productList */
       thisCart.dom.productList.appendChild(generatedDOM);
-
-      console.log('adding product', menuProduct);
     }
 
   }
