@@ -194,6 +194,8 @@
       /* get data from the form */
       const formData = utils.serializeFormToObject(thisProduct.form);
 
+      thisProduct.params = {};
+
       /* set variable 'price' for default product price (thisProduct.data.price) */
       let price = thisProduct.data.price;
       
@@ -201,15 +203,13 @@
       for (let paramId in thisProduct.data.params){
 
         /* save the element in thisProduct.data.params with key paramId as const param */
-        const param = paramId;
+        const param = thisProduct.data.params[paramId];
 
         /* START LOOP: for each optionId in param.options */
-        const paramProperties = thisProduct.data.params[param];
-        const paramOptions = paramProperties['options'];
 
-        for (let optionId in paramOptions){    
+        for (let optionId in param.options){    
           /* save the element in param.options with key optionId as const option */
-          const option = optionId;     
+          const option = param.options[optionId];     
       
           /* FIND if formData contains property key equal to parametr key
           AND: if array with this property key contains option key */
@@ -219,21 +219,16 @@
           if(optionSelected && !option.default){ 
       
             /* add price of option to variable price */
-            const optionProperties = paramOptions[option];
-            const optionPrice = optionProperties['price'];
-
-            price = price + optionPrice;
+            price = price + option.price;
       
           /* END IF: if option is selected and option is not default */
           }    
       
           /* START ELSE IF: if option is not selected and IS default*/
           else if(!optionSelected && option.default){
-            const optionProperties = paramOptions[option];
-            const optionPrice = optionProperties['price'];
       
             /* deduct option's price from variable 'price' */
-            price = price - optionPrice;  
+            price = price - option.price;  
                   
           /* END: if option is not selected and IS default */
           }
@@ -246,7 +241,17 @@
           
           /* START IF: if option is selected */
           if(optionSelected){
+            console.log('paramId:', paramId);
+            console.log('optionId:', optionId);
 
+            if(!thisProduct.params[paramId]){
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
+            thisProduct.params[paramId].options[optionId] = option.label;
+            console.log('option.label:', thisProduct.params[paramId].options[optionId]);
             /* START LOOP: for each found image */
             for(let optionImage of optionImages){
 
@@ -286,7 +291,7 @@
 
       /* Insert value of variable 'price' into price element*/
       thisProduct.priceElem.innerHTML = thisProduct.price; 
-
+      console.log('params:', thisProduct.params);
     }
 
     initAmountWidget(){
