@@ -241,8 +241,6 @@
           
           /* START IF: if option is selected */
           if(optionSelected){
-            console.log('paramId:', paramId);
-            console.log('optionId:', optionId);
 
             if(!thisProduct.params[paramId]){
               thisProduct.params[paramId] = {
@@ -306,6 +304,9 @@
 
     addToCart(){
       const thisProduct = this;
+
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount = thisProduct.amountWidget.value;
 
       app.cart.add(thisProduct);
     }
