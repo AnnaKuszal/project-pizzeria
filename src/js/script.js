@@ -417,7 +417,12 @@
 
       thisCart.dom.productList.addEventListener('updated', function(){
         thisCart.update();
-      })
+      });
+
+      thisCart.dom.productList.addEventListener('remove', function(){
+        thisCart.remove(event.detail.cartProduct);
+      });
+
 
     }
 
@@ -440,6 +445,8 @@
       //console.log('new CartProduct:', thisCart.products);
 
       thisCart.update();
+
+      console.log('thisCart.products:', thisCart.products);
     }
 
     update(){
@@ -451,8 +458,8 @@
       //console.log('thisCart.products:', thisCart.products);
 
       for(let product of thisCart.products){
-        console.log('product:', product);
-        console.log('price:', product.price);
+        //console.log('product:', product);
+        //console.log('price:', product.price);
 
         thisCart.subtotalPrice+=product.price;
         thisCart.totalNumber+=product.amount;
@@ -460,9 +467,9 @@
 
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       
-      console.log('totalNumber:', thisCart.totalNumber);
-      console.log('subtotalPrice:', thisCart.subtotalPrice);
-      console.log('totalPrice:', thisCart.totalPrice);
+      //console.log('totalNumber:', thisCart.totalNumber);
+      //console.log('subtotalPrice:', thisCart.subtotalPrice);
+      //console.log('totalPrice:', thisCart.totalPrice);
 
       for(let key of thisCart.renderTotalsKeys){
         for(let elem of thisCart.dom[key]){
@@ -472,6 +479,20 @@
 
     }
 
+    remove(cartProduct){
+      const thisCart = this;
+      
+      const index = thisCart.products.indexOf(cartProduct);
+      console.log('INDEX:', index);
+
+      thisCart.products.splice(index);
+      console.log('thisCart.productsEND:', thisCart.products);
+
+      cartProduct.dom.wrapper.remove();
+
+      thisCart.update(cartProduct);
+    }
+    
   }
 
 
@@ -487,7 +508,7 @@
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
       thisCartProduct.getElements(element);
       
-      console.log('new CartProduct:', thisCartProduct);
+      //console.log('new CartProduct:', thisCartProduct);
       //console.log('productData:', menuProduct);
 
       thisCartProduct.initAmountWidget();
@@ -546,6 +567,8 @@
       thisCartProduct.dom.remove.addEventListener('click', function(event){
         event.preventDefault();
         thisCartProduct.remove();
+
+        console.log('REMOVE:', event);
       });
 
     }
