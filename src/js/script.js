@@ -386,8 +386,6 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      //console.log('newCart', thisCart);
-
       thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
     }
 
@@ -437,16 +435,11 @@
 
       /* add element to thisCart.dom.productList */
       thisCart.dom.productList.appendChild(generatedDOM);
-
-      //thisCart.products.push(menuProduct);
-      //console.log('thisCart.products:', thisCart.products);
       
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-      //console.log('new CartProduct:', thisCart.products);
 
       thisCart.update();
 
-      console.log('thisCart.products:', thisCart.products);
     }
 
     update(){
@@ -455,11 +448,7 @@
       thisCart.totalNumber = 0;
       thisCart.subtotalPrice = 0;
 
-      //console.log('thisCart.products:', thisCart.products);
-
       for(let product of thisCart.products){
-        //console.log('product:', product);
-        //console.log('price:', product.price);
 
         thisCart.subtotalPrice+=product.price;
         thisCart.totalNumber+=product.amount;
@@ -467,10 +456,6 @@
 
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       
-      //console.log('totalNumber:', thisCart.totalNumber);
-      //console.log('subtotalPrice:', thisCart.subtotalPrice);
-      //console.log('totalPrice:', thisCart.totalPrice);
-
       for(let key of thisCart.renderTotalsKeys){
         for(let elem of thisCart.dom[key]){
           elem.innerHTML = thisCart[key];
@@ -483,18 +468,16 @@
       const thisCart = this;
       
       const index = thisCart.products.indexOf(cartProduct);
-      console.log('INDEX:', index);
 
-      thisCart.products.splice(index);
-      console.log('thisCart.productsEND:', thisCart.products);
+      thisCart.products.splice(index, 1);
 
       cartProduct.dom.wrapper.remove();
 
-      thisCart.update(cartProduct);
+      thisCart.update();
+      
     }
     
   }
-
 
   class CartProduct{
     constructor(menuProduct, element){
@@ -507,9 +490,6 @@
       thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
       thisCartProduct.getElements(element);
-      
-      //console.log('new CartProduct:', thisCartProduct);
-      //console.log('productData:', menuProduct);
 
       thisCartProduct.initAmountWidget();
       thisCartProduct.initActions();
@@ -554,7 +534,6 @@
 
       thisCartProduct.dom.wrapper.dispatchEvent(event);
 
-      console.log('REMOVE:', event);
     }
 
     initActions(){
@@ -568,7 +547,6 @@
         event.preventDefault();
         thisCartProduct.remove();
 
-        console.log('REMOVE:', event);
       });
 
     }
