@@ -410,6 +410,8 @@
       for(let key of thisCart.renderTotalsKeys){
         thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
       }
+
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     }
 
     initActions(){
@@ -425,6 +427,11 @@
 
       thisCart.dom.productList.addEventListener('remove', function(){
         thisCart.remove(event.detail.cartProduct);
+      });
+
+      thisCart.dom.form.addEventListener('submit', function(){
+        event.preventDefault();
+        thisCart.sendOrder();
       });
 
 
@@ -577,18 +584,18 @@
       const url = settings.db.url + '/' + settings.db.product;
 
       fetch(url)
-      .then(function(rawResponse){
-        return rawResponse.json();
-      })
-      .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
 
-        /* save parsedResponse at thisApp.data.products */
-        thisApp.data.products = parsedResponse;
-        
-        /* execute initMenu method */
-        thisApp.initMenu();
-      });
+          /* save parsedResponse at thisApp.data.products */
+          thisApp.data.products = parsedResponse;
+
+          /* execute initMenu method */
+          thisApp.initMenu();
+        });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
