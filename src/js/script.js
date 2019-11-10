@@ -499,7 +499,6 @@
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-        //address: 'test',
         totalNumber: thisCart.totalNumber,
         totalPrice: thisCart.totalPrice,
         subtotalPrice: thisCart.subtotalPrice,
@@ -529,9 +528,7 @@
           return response.json();
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
 
- 
         });
 
     }
@@ -622,9 +619,8 @@
       };
 
       return getData;
-
+      
     }
-
   } 
 
 
@@ -649,7 +645,6 @@
           return rawResponse.json();
         })
         .then(function(parsedResponse){
-          console.log('parsedResponse', parsedResponse);
 
           /* save parsedResponse at thisApp.data.products */
           thisApp.data.products = parsedResponse;
@@ -658,7 +653,6 @@
           thisApp.initMenu();
         });
 
-      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
 
     init: function(){
