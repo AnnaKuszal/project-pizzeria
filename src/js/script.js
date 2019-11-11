@@ -528,7 +528,7 @@
           return response.json();
         })
         .then(function(parsedResponse){
-
+          console.log('parsedResponse', parsedResponse);
         });
 
     }
@@ -640,10 +640,24 @@
       thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.product;
 
+      
+      function handleErrors(rawResponse) {
+        if (!rawResponse.ok) {
+          throw Error(rawResponse.statusText);
+        }
+        return rawResponse;
+      }
+      
       fetch(url)
+        .then(handleErrors)
         .then(function(rawResponse){
-          return rawResponse.json();
+          console.log('ok');
+          return rawResponse.json();  
         })
+        .catch(function(error) {
+          console.log(error);
+        })
+  
         .then(function(parsedResponse){
 
           /* save parsedResponse at thisApp.data.products */
