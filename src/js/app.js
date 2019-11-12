@@ -13,6 +13,20 @@ const app = {
     
     thisApp.activatePage(thisApp.pages[0].id );
 
+    for(let link of thisApp.navLinks){
+      link.addEventListener('click', function(event){
+        const clickedElement = this;
+        event.preventDefault();
+
+        /* get page id from href attribute */
+        const id = clickedElement.getAttribute('href').replace('#', '');
+
+        /* run thisApp.activatePage with this id */
+        thisApp.activatePage(id);
+        
+      })
+    }
+
   },
 
   activatePage: function(pageId){
