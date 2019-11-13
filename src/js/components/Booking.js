@@ -8,6 +8,7 @@ class Booking{
         thisBooking.render(thisApp.bookingWidget);
         thisBooking.initWidgets();
     }
+    
     render(element){
         thisBooking = this;
 
@@ -21,6 +22,13 @@ class Booking{
         thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
         thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
 
+    }
+
+    initWidgets(){
+        thisBooking = this;
+
+        thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
+        thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     }
 
 }
