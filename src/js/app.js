@@ -69,7 +69,7 @@ const app = {
     
     thisApp.bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
     
-    new Booking(thisApp.bookingWidgetWrapper);
+    thisApp.bookingWidget = new Booking(thisApp.bookingWidgetWrapper);
   },
     
   initMenu: function(){
