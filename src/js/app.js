@@ -62,6 +62,14 @@ const app = {
 
 
   },
+
+  initBooking: function(){
+    const thisApp = this;
+    
+    thisApp.bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
+    
+    new Booking(thisApp.bookingWidgetWrapper);
+  },
     
   initMenu: function(){
     const thisApp = this;
@@ -114,6 +122,8 @@ const app = {
     thisApp.initData();
       
     thisApp.initCart();
+
+    thisApp.initBooking();
 
   },
 
