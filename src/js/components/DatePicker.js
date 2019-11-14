@@ -22,7 +22,6 @@ class DatePicker extends BaseWidget{
  
     /* Init flatpickr plugin */
     const options = {
-      enableTime: true,
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
