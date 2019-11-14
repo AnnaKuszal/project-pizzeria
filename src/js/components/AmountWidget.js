@@ -20,17 +20,15 @@ class AmountWidget extends BaseWidget{
     thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
 
-  setValue(value){
+  isValid(value){
+    return !isNaN(value)
+    &&value>=settings.amountWidget.defaultMin 
+    && value<=settings.amountWidget.defaultMax;
+  }
+
+  renderValue(){
     const thisWidget = this;
 
-    const newValue = parseInt(value);
-
-    /* TODO: Add validation */
-    if(newValue!==thisWidget.dom.input.value && newValue>=settings.amountWidget.defaultMin && newValue<=settings.amountWidget.defaultMax){
-      thisWidget.value = newValue;
-      thisWidget.announce();
-    }
-      
     thisWidget.dom.input.value = thisWidget.value;
   }
 
@@ -38,7 +36,8 @@ class AmountWidget extends BaseWidget{
     const thisWidget = this;
       
     thisWidget.dom.input.addEventListener('change', function(){
-      thisWidget.setValue(thisWidget.dom.input.value);
+      //thisWidget.setValue(thisWidget.dom.input.value);
+      thisWidget.value = thisWidget.dom.input.value;
     });
 
     thisWidget.dom.linkDecrease.addEventListener('click', function(){
@@ -53,15 +52,7 @@ class AmountWidget extends BaseWidget{
 
   }
 
-  announce(){
-    const thisWidget = this;
 
-    const event = new CustomEvent('updated', {
-      bubbles: true
-    });
-      
-    thisWidget.dom.wrapper.dispatchEvent(event);
-  }
 
 }
 
