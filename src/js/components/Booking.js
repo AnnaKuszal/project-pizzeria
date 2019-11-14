@@ -1,35 +1,34 @@
-import AmountWidget from "./AmountWidget";
-
+import AmountWidget from './AmountWidget.js';
+import {select, templates} from '../settings.js';
 
 class Booking{
-    constructor(){
-        thisBooking = this;
+  constructor(bookingWidgetWrapper){
+    const thisBooking = this;
 
-        thisBooking.render(thisApp.bookingWidget);
-        thisBooking.initWidgets();
-    }
-    
-    render(element){
-        thisBooking = this;
+    thisBooking.render(bookingWidgetWrapper);
+    thisBooking.initWidgets();
+  }
 
-        const generatedHTML = templates.bookingWidget();
+  render(element){
+    const thisBooking = this;
 
-        thisBooking.dom = {};
-        thisBooking.dom.wrapper = element;
+    const generatedHTML = templates.bookingWidget();
 
-        thisBooking.element = utils.createDOMFromHTML(generatedHTML);
+    thisBooking.dom = {};
+    thisBooking.dom.wrapper = element;
 
-        thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-        thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.wrapper.innerHTML = generatedHTML;
 
-    }
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+  }
 
-    initWidgets(){
-        thisBooking = this;
+  initWidgets(){
+    const thisBooking = this;
 
-        thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
-        thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
-    }
+    thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
+    thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+  }
 
 }
 

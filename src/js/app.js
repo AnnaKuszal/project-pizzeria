@@ -1,7 +1,7 @@
 import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
-import Booking from './components/Booking,js';
+import Booking from './components/Booking.js';
 
 
 const app = {
@@ -23,7 +23,7 @@ const app = {
         break;
       }
     }
-    console.log('pageMatchingHash', pageMatchingHash);
+    
     thisApp.activatePage(pageMatchingHash);
 
     for(let link of thisApp.navLinks){
@@ -67,9 +67,9 @@ const app = {
   initBooking: function(){
     const thisApp = this;
     
-    thisApp.bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
+    const bookingWidgetWrapper = document.querySelector(select.containerOf.booking);
     
-    thisApp.bookingWidget = new Booking(thisApp.bookingWidgetWrapper);
+    thisApp.booking = new Booking(bookingWidgetWrapper);
   },
     
   initMenu: function(){
