@@ -30,12 +30,12 @@ class DatePicker extends BaseWidget{
       },
       disable: [
         function(date) {
-            // return true to disable
+          // return true to disable
           return (date.getDay() === 1);
         }
       ],
 
-       // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef
       onChange: function(selectedDates, dateStr){
         
         thisWidget.value = dateStr;
@@ -43,7 +43,8 @@ class DatePicker extends BaseWidget{
       }
          
     };
-
+    
+    // eslint-disable-next-line no-undef
     flatpickr(thisWidget.dom.input, options);
 
   }
