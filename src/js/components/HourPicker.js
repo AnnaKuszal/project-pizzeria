@@ -29,8 +29,8 @@ class HourPicker extends BaseWidget{
   }
 
   parseValue(value){
-    utils.numberToHour(value);
-    return value;
+    const toHour = utils.numberToHour(value);
+    return toHour;
   }
 
   isValid(){
