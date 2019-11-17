@@ -36,9 +36,9 @@ class DatePicker extends BaseWidget{
       ],
 
       // eslint-disable-next-line no-undef
-      onChange: function(selectedDates, dateStr){
+      onChange: function(selectedDates, dateToStr){     //KL: dateToStr
         
-        thisWidget.value = dateStr;
+        thisWidget.value = dateToStr;                   //KL: dateToStr
         console.log(thisWidget.value);
       }
          
