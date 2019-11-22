@@ -12,6 +12,7 @@ class Booking{
     thisBooking.render(bookingWidgetWrapper);
     thisBooking.initWidgets();
     thisBooking.getData();
+    
   }
 
   getData(){
@@ -36,8 +37,6 @@ class Booking{
       ],
     };
 
-    console.log('getData params', params);
-    
     const urls = {
       booking:        settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
       eventsCurrent:  settings.db.url + '/' + settings.db.event   + '?' + params.eventsCurrent.join('&'),
@@ -61,9 +60,6 @@ class Booking{
         
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-        //console.log(bookings);
-        //console.log(eventsCurrent);
-        //console.log(eventsRepeat);
 
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
@@ -80,6 +76,7 @@ class Booking{
 
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+      
     }
 
     const minDate = thisBooking.datePicker.minDate;
@@ -93,9 +90,9 @@ class Booking{
         }
       }
     }
-    //console.log('thisBooking.booked', thisBooking.booked);
-
+    
     thisBooking.updateDOM();
+
   }
 
   makeBooked(date, hour, duration, table){
@@ -106,26 +103,24 @@ class Booking{
     }
 
     const startHour = utils.hourToNumber(hour);
-    //console.log('hour', hour, typeof hour);  //argument'hour' IS STRING eg. 12:00 and function hourToNumber: 1: split the string, 2: changes it into a number
 
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
         thisBooking.booked[date][hourBlock] = [];
       }
-
+    
       thisBooking.booked[date][hourBlock].push(table);
-    }
+
+    }     
+      
   }
 
   updateDOM(){
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
-    console.log('thisBooking.date', thisBooking.date);
 
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-
-    console.log('thisBooking.hour', thisBooking.hour);
 
     let allAvailable = false;
     if(
@@ -145,14 +140,18 @@ class Booking{
       if(
         !allAvailable
         &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
       ){
         table.classList.add(classNames.booking.tableBooked);
       }else{
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+
+
+
   }
+
 
   render(element){
     const thisBooking = this;
@@ -170,6 +169,17 @@ class Booking{
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+
+    thisBooking.dom.formBooking = thisBooking.dom.wrapper.querySelector(select.booking.formBooking);
+    thisBooking.dom.formBookingSubmit = thisBooking.dom.wrapper.querySelector(select.booking.formBookingSubmit);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    thisBooking.dom.startersCheck = thisBooking.dom.wrapper.querySelectorAll(select.booking.startersCheck);
+    thisBooking.dom.forbidden = thisBooking.dom.wrapper.querySelector(select.booking.forbidden);
+
+    thisBooking.dom.hourPicker.value = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.output);
+ 
   }
 
   initWidgets(){
@@ -179,11 +189,13 @@ class Booking{
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
-
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
     });
   }
+
+  
+
 
 }
 
