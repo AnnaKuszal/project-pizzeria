@@ -115,7 +115,7 @@ class Cart{
   sendOrder(){
     const thisCart = this;
 
-    const url = settings.db.url + '/' + settings.db.order;
+    const url = `${settings.db.url}/${settings.db.order}`;
 
     const payload = {
       totalNumber: thisCart.totalNumber,

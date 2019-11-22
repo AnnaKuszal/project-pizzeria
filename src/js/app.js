@@ -38,7 +38,7 @@ const app = {
         thisApp.activatePage(id);
 
         /* change URL hash */
-        window.location.hash = '#/' + id;
+        window.location.hash = `#/${id}`;
         
       });
     }
@@ -57,7 +57,7 @@ const app = {
     for(let link of thisApp.navLinks){
       link.classList.toggle(
         classNames.nav.active, 
-        link.getAttribute('href') == '#' + pageId
+        link.getAttribute('href') == `#${pageId}`
       );
     }
 
@@ -84,7 +84,7 @@ const app = {
     const thisApp = this;
   
     thisApp.data = {};
-    const url = settings.db.url + '/' + settings.db.product;
+    const url = `${settings.db.url}/${settings.db.product}`;
 
       
     function handleErrors(rawResponse) {
