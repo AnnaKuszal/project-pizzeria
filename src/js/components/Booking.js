@@ -149,7 +149,31 @@ class Booking{
       }
     }
 
+    let bookingStart = thisBooking.hour;
+    let bookingDuration = thisBooking.hoursAmount.value;
 
+    if(thisBooking.tableId){
+      
+      for(let hourBlock = bookingStart; hourBlock < bookingStart + bookingDuration; hourBlock += 0.5){
+ 
+        if(
+          (typeof thisBooking.booked[thisBooking.date][hourBlock] !== 'undefined')
+          &&
+          (thisBooking.booked[thisBooking.date][hourBlock].indexOf(thisBooking.tableId) > -1)
+        )
+
+        {
+          console.log('ERROR !!!');
+          thisBooking.dom.forbidden.innerHTML = 'Table ' + thisBooking.tableId + ' has already been booked within the nearest time interval. Please, change your preferences.';
+        }
+
+        else{
+          thisBooking.dom.forbidden.innerHTML = '';
+        }
+    
+      }
+
+    }
 
   }
 
