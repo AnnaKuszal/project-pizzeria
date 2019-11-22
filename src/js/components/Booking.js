@@ -11,6 +11,7 @@ class Booking{
 
     thisBooking.render(bookingWidgetWrapper);
     thisBooking.initWidgets();
+    thisBooking.initActions();
     thisBooking.getData();
     
   }
@@ -192,6 +193,36 @@ class Booking{
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
     });
+  }
+
+  initActions(){
+    const thisBooking = this;
+    
+    for(let table of thisBooking.dom.tables){
+
+      table.addEventListener('click', function(event){
+        event.preventDefault();
+
+        const clickedElement = this;
+        
+        clickedElement.classList.add(classNames.booking.tableBooked);
+
+        thisBooking.bookedTable = clickedElement.classList.contains(classNames.booking.tableBooked);
+        
+        thisBooking.tableId = parseInt(clickedElement.getAttribute(settings.booking.tableIdAttribute));
+
+      });
+      
+    }
+
+    thisBooking.dom.formBooking.addEventListener('submit', function(event){
+      event.preventDefault();
+      thisBooking.bookTable();
+
+      thisBooking.updateDOM();
+
+    });
+
   }
 
   
