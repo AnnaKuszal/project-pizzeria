@@ -19,8 +19,8 @@ class Booking{
   getData(){
     const thisBooking = this;
 
-    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
-    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+    const startDateParam = `${settings.db.dateStartParamKey}=${utils.dateToStr(thisBooking.datePicker.minDate)}`;
+    const endDateParam = `${settings.db.dateEndParamKey}=${utils.dateToStr(thisBooking.datePicker.maxDate)}`;
 
     const params = {
       booking: [
@@ -39,9 +39,9 @@ class Booking{
     };
 
     const urls = {
-      booking:        settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
-      eventsCurrent:  settings.db.url + '/' + settings.db.event   + '?' + params.eventsCurrent.join('&'),
-      eventsRepeat:   settings.db.url + '/' + settings.db.event   + '?' + params.eventsRepeat.join('&'),
+      booking:        `${settings.db.url}/${settings.db.booking}?${params.booking.join('&')}`,
+      eventsCurrent:  `${settings.db.url}/${settings.db.event}?${params.eventsCurrent.join('&')}`,
+      eventsRepeat:   `${settings.db.url}/${settings.db.event}?${params.eventsRepeat.join('&')}`,
     };
 
     Promise.all([
@@ -164,7 +164,7 @@ class Booking{
 
         {
           console.log('ERROR !!!');
-          thisBooking.dom.forbidden.innerHTML = 'Table ' + thisBooking.tableId + ' has already been booked within the nearest time interval. Please, change your preferences.';
+          thisBooking.dom.forbidden.innerHTML = `Table ${thisBooking.tableId} has already been booked within the nearest time interval. Please, change your preferences.`;
         }
 
         else{
@@ -252,7 +252,7 @@ class Booking{
   bookTable(){
     const thisBooking = this;
 
-    const url = settings.db.url + '/' + settings.db.booking;
+    const url = `${settings.db.url}/${settings.db.booking}`;
 
     const payload = {
       date: thisBooking.datePicker.value,
