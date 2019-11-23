@@ -9,11 +9,12 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
-
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.titleLinks = document.querySelectorAll(select.title.links);
+    thisApp.logoLink = document.querySelector(select.logo.link);
+    thisApp.cart = document.querySelector(select.containerOf.cart);
     
     const idFromHash = window.location.hash.replace('#/', '');
-    
 
     let pageMatchingHash = thisApp.pages[0].id;
 
@@ -43,6 +44,54 @@ const app = {
       });
     }
 
+    for(let titleLink of thisApp.titleLinks){
+      titleLink.addEventListener('click', function(event){
+        const clickedElement = this;
+        event.preventDefault();
+
+        /* get page id from href attribute */
+        const id = clickedElement.getAttribute('href').replace('#', '');
+
+        /* run thisApp.activatePage with this id */
+        thisApp.activatePage(id);
+
+        /* change URL hash */
+        window.location.hash = `#/${id}`;
+
+        thisApp.cart = document.querySelector(select.containerOf.cart);
+        thisApp.cart.style.display = 'block';
+
+        thisApp.navLinks = document.querySelectorAll(select.nav.links);
+        for(let link of thisApp.navLinks){
+          link.style.display = 'block';
+        }
+      
+      });
+    }
+
+    thisApp.logoLink.addEventListener('click', function(event){
+      const clickedElement = this;
+      event.preventDefault();
+
+      /* get page id from href attribute */
+      const id = clickedElement.getAttribute('href').replace('#', '');
+
+      /* run thisApp.activatePage with this id */
+      thisApp.activatePage(id);
+
+      /* change URL hash */
+      window.location.hash = `#/${id}`;
+
+      thisApp.cart = document.querySelector(select.containerOf.cart);
+      thisApp.cart.style.display = 'none';
+
+      thisApp.navLinks = document.querySelectorAll(select.nav.links);
+      for(let link of thisApp.navLinks){
+        link.style.display = 'none';
+      }
+      
+    });
+
   },
 
   activatePage: function(pageId){
@@ -51,6 +100,18 @@ const app = {
     /* add class 'active' to matching pages, remove from non-matching */
     for(let page of thisApp.pages){
       page.classList.toggle(classNames.pages.active, page.id == pageId);
+ 
+      if(pageId == 'order' || pageId == 'booking'){
+        thisApp.cart = document.querySelector(select.containerOf.cart);
+        thisApp.cart.style.display = 'block';
+
+        thisApp.navLinks = document.querySelectorAll(select.nav.links);
+        for(let link of thisApp.navLinks){
+          link.style.display = 'block';
+        }
+        
+      }
+      
     }
 
     /* add class 'active' to matching links, remove from non-matching */
@@ -60,7 +121,6 @@ const app = {
         link.getAttribute('href') == `#${pageId}`
       );
     }
-
 
   },
 
@@ -119,11 +179,8 @@ const app = {
     const thisApp = this;
 
     thisApp.initPages();
-
     thisApp.initData();
-      
     thisApp.initCart();
-
     thisApp.initBooking();
 
   },
@@ -139,7 +196,11 @@ const app = {
     thisApp.productList.addEventListener('add-to-cart', function(event){
       app.cart.add(event.detail.product);
     });
-  }
+  },
+
+
+ 
+
 };
 
 app.init();
