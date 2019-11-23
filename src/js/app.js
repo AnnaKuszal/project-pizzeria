@@ -179,6 +179,7 @@ const app = {
     const thisApp = this;
 
     thisApp.initPages();
+    thisApp.initSlider();
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
@@ -198,8 +199,33 @@ const app = {
     });
   },
 
+  initSlider(){
+    let slideIndex = 0;
+    
+    const showSlides = function(){
+        
+      const slides = document.querySelectorAll('.slides');
+      const dots = document.querySelectorAll('.dot');
+          
+      for(let i=0; i<slides.length; i++){
+        slides[i].style.display = 'none';
+      }
+    
+      for(let i=0; i<dots.length; i++){
+        dots[i].className = dots[i].className.replace('active', '');
+      } 
+    
+      slideIndex++; 
+      // eslint-disable-next-line
+      if (slideIndex > slides.length) {slideIndex = 1};
+      slides[slideIndex-1].style.display = 'block';
+      dots[slideIndex-1].className += ' active';
+      setTimeout(showSlides, 3000);
+    
+    };
 
- 
+    showSlides();
+  },
 
 };
 
