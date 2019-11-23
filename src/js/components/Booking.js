@@ -228,11 +228,8 @@ class Booking{
         event.preventDefault();
 
         const clickedElement = this;
-        
         clickedElement.classList.add(classNames.booking.tableBooked);
-
         thisBooking.bookedTable = clickedElement.classList.contains(classNames.booking.tableBooked);
-        
         thisBooking.tableId = parseInt(clickedElement.getAttribute(settings.booking.tableIdAttribute));
 
       });
@@ -273,7 +270,6 @@ class Booking{
       }
     }
 
-
     const options = {
       method: 'POST',
       headers: {
@@ -287,7 +283,7 @@ class Booking{
         return response.json();
       })
       .then(function(parsedResponse){
-        //console.log('parsedResponse', parsedResponse);
+        console.log('parsedResponse', parsedResponse);
       });
     
   }
