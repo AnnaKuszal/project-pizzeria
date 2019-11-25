@@ -93,6 +93,7 @@ class Booking{
     }
     
     thisBooking.updateDOM();
+    console.log('thisBooking.booked', thisBooking.booked);
 
   }
 
@@ -174,6 +175,86 @@ class Booking{
       }
 
     }
+
+
+    let bookingDate = thisBooking.datePicker.value;
+    console.log('bookingDate', bookingDate);
+
+    let bookedDates = thisBooking.booked;
+    console.log('bookedDates', bookedDates);
+
+
+          
+    thisBooking.HourPicker = document.querySelector('.range-slider input');
+    console.log('thisBooking.HourPicker', thisBooking.HourPicker.value);
+
+    for (let bookedDate in bookedDates){
+    
+      if (bookedDate == bookingDate){
+        console.log('YES');
+        console.log('bookedDate', bookedDate);
+        //console.log('hourBlocks', hourBlocks);
+
+        let hourBlocks = thisBooking.booked[thisBooking.date];
+        console.log('hourBlocks', hourBlocks);
+        
+        for(let hourBlock = 12; hourBlock < 24; hourBlock += 0.5){
+
+          if(typeof thisBooking.booked[thisBooking.date][hourBlock] == 'undefined'){
+            thisBooking.booked[thisBooking.date][hourBlock] = [];
+            console.log('EMPTY', thisBooking.booked[thisBooking.date][hourBlock]);
+          }
+
+          console.log('hourBlock', hourBlock);
+          const BookedTablesQty = thisBooking.booked[thisBooking.date][hourBlock].length;
+          console.log('BookedTablesQty', BookedTablesQty);
+
+              
+
+          thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+          thisBooking.HourPickerBar = document.querySelector('.range-slider .rangeSlider__horizontal');
+          //console.log('thisBooking.HourPickerBar', thisBooking.HourPickerBar);
+
+          const bar = thisBooking.HourPickerBar;
+          
+
+          
+          if(hourBlock==thisBooking.hour){
+            console.log('MATCH', thisBooking.hour);
+
+            thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+            console.log(thisBooking.hour);
+            
+
+            
+            
+            //thisBooking.HourPickerBar.insertAdjacentHTML("beforeend", "<div style='color:red; width: 20px; height: 10px; background: blue; display: inline'>1</div>");
+            //bar.style.background ='blue';
+            //bar.style.width = '30px';
+          }
+
+          if(BookedTablesQty == '3'){
+            console.log('RED');
+          }
+
+          if(BookedTablesQty == '2'){
+            console.log('ORANGE');
+          }
+
+          else
+          {
+            console.log('RED');
+          }
+
+
+
+        }
+
+
+      }
+
+    }
+
 
   }
 
