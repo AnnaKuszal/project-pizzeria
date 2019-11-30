@@ -253,6 +253,36 @@
         "duration": 2,
         "ppl": 3,
         "starters": ["lemonWater"]
+      },
+      {
+        "id": 6,
+        "date": "2019-01-01",
+        "hour": "18:00",
+        "table": 1,
+        "repeat": "daily",
+        "duration": 3,
+        "ppl": 3,
+        "starters": ["lemonWater"]
+      },
+      {
+        "id": 7,
+        "date": "2019-01-01",
+        "hour": "19:30",
+        "table": 3,
+        "repeat": "daily",
+        "duration": 3,
+        "ppl": 3,
+        "starters": []
+      },
+      {
+        "id": 8,
+        "date": "2019-01-01",
+        "hour": "20:00",
+        "table": 2,
+        "repeat": "daily",
+        "duration": 3,
+        "ppl": 3,
+        "starters": []
       }
     ],
     "booking": [
