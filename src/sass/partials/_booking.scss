@@ -59,13 +59,16 @@
   
 .rangeSlider {
   top: $base-size;
-  background: lighten($color-dark, 70%);
+  //background: lighten($color-dark, 70%);
   box-shadow: none;
   height: $base-size;
+  background: none;
+  background: linear-gradient(90deg, rgba(249,34,7,1) 0%, rgba(249,34,7,1) 4%, rgba(245,169,6,1) 4%, rgba(245,169,6,1) 8%, rgba(132,231,22,1) 8%, rgba(132,231,22,1) 12%, rgba(35,230,191,1) 12%, rgba(35,230,191,1) 16%, rgba(35,193,230,1) 16%, rgba(35,193,230,1) 20%, rgba(35,108,230,1) 20%, rgba(35,108,230,1) 24%, rgba(109,35,230,1) 24%, rgba(109,35,230,1) 28%, rgba(181,35,230,1) 28%, rgba(181,35,230,1) 32%, rgba(230,35,203,1) 32%, rgba(230,35,203,1) 36%, rgba(230,35,128,1) 36%, rgba(230,35,128,1) 40%, rgba(230,35,62,1) 40%, rgba(230,35,62,1) 44%, rgba(148,6,12,1) 44%, rgba(148,6,12,1) 48%, rgba(249,34,7,1) 48%, rgba(249,34,7,1) 52%, rgba(249,136,7,1) 52%, rgba(249,136,7,1) 56%, rgba(132,231,22,1) 56%, rgba(132,231,22,1) 60%, rgba(35,230,191,1) 60%, rgba(35,230,191,1) 64%, rgba(35,193,230,1) 64%, rgba(35,193,230,1) 68%, rgba(35,108,230,1) 68%, rgba(35,108,230,1) 72%, rgba(109,35,230,1) 72%, rgba(109,35,230,1) 76%, rgba(181,35,230,1) 76%, rgba(181,35,230,1) 80%, rgba(230,35,203,1) 80%, rgba(230,35,203,1) 84%, rgba(230,35,128,1) 84%, rgba(230,35,128,1) 88%, rgba(230,35,62,1) 88%, rgba(230,35,62,1) 92%, rgba(148,6,12,1) 92%, rgba(148,6,12,1) 100%);
   
   &__handle {
     box-shadow: none;
     border: 0;
+      
     transition-timing-function: cubic-bezier(0, 1, 0, 1);
     transition: transform 100ms;
   
@@ -83,7 +86,8 @@
   }
   
   &__fill {
-    background: $color-success;
+    //background: $color-success;
+    background: none;
     transition-timing-function: cubic-bezier(0, 1, 0, 1);
     transition: width 100ms;
     box-shadow: none;
