@@ -93,7 +93,7 @@ class Booking{
     }
     
     thisBooking.updateDOM();
-    console.log('thisBooking.booked', thisBooking.booked);
+    //console.log('thisBooking.booked', thisBooking.booked);
 
   }
 
@@ -178,83 +178,127 @@ class Booking{
 
 
     let bookingDate = thisBooking.datePicker.value;
-    console.log('bookingDate', bookingDate);
 
     let bookedDates = thisBooking.booked;
-    console.log('bookedDates', bookedDates);
+
+    thisBooking.intervals = {};
+      
+    for (let bookedDate in bookedDates){          //FINDING QUANTITY OF BOOKED TABLES per HOUR on a picked day - ADD empty tables for undefined hour blocks
 
 
-          
-    thisBooking.HourPicker = document.querySelector('.range-slider input');
-    console.log('thisBooking.HourPicker', thisBooking.HourPicker.value);
-
-    for (let bookedDate in bookedDates){
-    
       if (bookedDate == bookingDate){
-        console.log('YES');
-        console.log('bookedDate', bookedDate);
-        //console.log('hourBlocks', hourBlocks);
 
+        // eslint-disable-next-line no-unused-vars
         let hourBlocks = thisBooking.booked[thisBooking.date];
-        console.log('hourBlocks', hourBlocks);
-        
-        for(let hourBlock = 12; hourBlock < 24; hourBlock += 0.5){
+
+        for(let hourBlock = 12; hourBlock < 24; hourBlock += 0.5){            
 
           if(typeof thisBooking.booked[thisBooking.date][hourBlock] == 'undefined'){
             thisBooking.booked[thisBooking.date][hourBlock] = [];
-            console.log('EMPTY', thisBooking.booked[thisBooking.date][hourBlock]);
-          }
-
-          console.log('hourBlock', hourBlock);
-          const BookedTablesQty = thisBooking.booked[thisBooking.date][hourBlock].length;
-          console.log('BookedTablesQty', BookedTablesQty);
-
-              
-
-          thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-          thisBooking.HourPickerBar = document.querySelector('.range-slider .rangeSlider__horizontal');
-          //console.log('thisBooking.HourPickerBar', thisBooking.HourPickerBar);
-
-          const bar = thisBooking.HourPickerBar;
-          
-
-          
-          if(hourBlock==thisBooking.hour){
-            console.log('MATCH', thisBooking.hour);
-
-            thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-            console.log(thisBooking.hour);
             
-
-            
-            
-            //thisBooking.HourPickerBar.insertAdjacentHTML("beforeend", "<div style='color:red; width: 20px; height: 10px; background: blue; display: inline'>1</div>");
-            //bar.style.background ='blue';
-            //bar.style.width = '30px';
           }
-
-          if(BookedTablesQty == '3'){
-            console.log('RED');
-          }
-
-          if(BookedTablesQty == '2'){
-            console.log('ORANGE');
-          }
-
-          else
-          {
-            console.log('RED');
-          }
-
-
 
         }
 
+          
+        let hourStep = 12;                          //FINDING % STEPS FOR GRADIENT
+        const j = 4.1666;
+        const k = parseFloat(j.toFixed(2));         //console.log('K', k, typeof k);
+        
+        for(let i=0; i<100; i+=k){                
+
+          thisBooking.intervals[hourStep] = [];
+  
+          thisBooking.intervals[hourStep].push(
+            parseFloat(i.toFixed(2)), 
+            parseFloat((i+k).toFixed(2))
+          );                                          //(i, i+4.166)
+
+          if (hourStep>=23.5){
+            break;
+          }
+
+          thisBooking.intervals[hourStep+=0.5] = [];
+           
+        }
+        // eslint-disable-next-line no-unused-vars
+        const bookedIds = thisBooking.booked[thisBooking.date];
+        
+        const intervalIds = thisBooking.intervals;
+
+        thisBooking.colorsAll = [];
+
+        for(let bookedId = 12; bookedId < 24; bookedId+=0.5){         //JOIN booked tables quantity per hour with gradient intervals (= hour blocks quantity)
+        
+          for(let intervalId in intervalIds){
+
+            if(bookedId == intervalId){
+
+              const BookedTablesQty = thisBooking.booked[thisBooking.date][bookedId].length;  //FINDING QUANTITY OF BOOKED TABLES per HOUR
+                
+              if(BookedTablesQty == '2'){
+                // eslint-disable-next-line no-unused-vars
+                const params = thisBooking.intervals[intervalId];
+
+                let paramA = thisBooking.intervals[intervalId][0];
+                let paramB = thisBooking.intervals[intervalId][1];
+
+                let color = 'orange';
+
+                const setColor = `${color} ${paramA}%, ${color} ${paramB}%`;
+
+                thisBooking.colorsAll.push(setColor);
+                
+              }
+
+              if(BookedTablesQty == '3'){
+                // eslint-disable-next-line no-unused-vars
+                const params = thisBooking.intervals[intervalId];
+
+                let paramA = thisBooking.intervals[intervalId][0];
+                let paramB = thisBooking.intervals[intervalId][1];
+
+                let color = 'red';
+
+                const setColor = `${color} ${paramA}%, ${color} ${paramB}%`;
+
+                thisBooking.colorsAll.push(setColor);
+                
+              }
+              
+              if((BookedTablesQty == '1') || (BookedTablesQty == '0')){
+                // eslint-disable-next-line no-unused-vars
+                const params = thisBooking.intervals[intervalId];
+
+                let paramA = thisBooking.intervals[intervalId][0];
+                let paramB = thisBooking.intervals[intervalId][1];
+
+                let color = 'green';
+
+                const setColor = `${color} ${paramA}%, ${color} ${paramB}%`;
+
+                thisBooking.colorsAll.push(setColor);
+
+              }
+
+            }
+
+          }
+                
+        }
+
+        const allColors =  thisBooking.colorsAll;
+
+        thisBooking.HourPickerBar = document.querySelector('.rangeSlider');
+        const bar = thisBooking.HourPickerBar;
+        
+        bar.style.background = `linear-gradient(90deg, ${allColors})`;
+
+        //bar.style.background = `linear-gradient(90deg, rgba(249,34,7,1) 0%, rgba(249,34,7,1) 4%, rgba(245,169,6,1) 4%, rgba(245,169,6,1) 8%, rgba(132,231,22,1) 8%, rgba(132,231,22,1) 12%, rgba(35,230,191,1) 12%, rgba(35,230,191,1) 16%, rgba(35,193,230,1) 16%, rgba(35,193,230,1) 20%, rgba(35,108,230,1) 20%, rgba(35,108,230,1) 24%, rgba(109,35,230,1) 24%, rgba(109,35,230,1) 28%, rgba(181,35,230,1) 28%, rgba(181,35,230,1) 32%, rgba(230,35,203,1) 32%, rgba(230,35,203,1) 36%, rgba(230,35,128,1) 36%, rgba(230,35,128,1) 40%, rgba(230,35,62,1) 40%, rgba(230,35,62,1) 44%, rgba(148,6,12,1) 44%, rgba(148,6,12,1) 48%, rgba(249,34,7,1) 48%, rgba(249,34,7,1) 52%, rgba(249,136,7,1) 52%, rgba(249,136,7,1) 56%, rgba(132,231,22,1) 56%, rgba(132,231,22,1) 60%, rgba(35,230,191,1) 60%, rgba(35,230,191,1) 64%, rgba(35,193,230,1) 64%, rgba(35,193,230,1) 68%, rgba(35,108,230,1) 68%, rgba(35,108,230,1) 72%, rgba(109,35,230,1) 72%, rgba(109,35,230,1) 76%, rgba(181,35,230,1) 76%, rgba(181,35,230,1) 80%, rgba(230,35,203,1) 80%, rgba(230,35,203,1) 84%, rgba(230,35,128,1) 84%, rgba(230,35,128,1) 88%, rgba(230,35,62,1) 88%, rgba(230,35,62,1) 92%, rgba(148,6,12,1) 92%, rgba(148,6,12,1) 100%)`;
 
       }
 
     }
-
 
   }
 
